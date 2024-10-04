@@ -13,11 +13,16 @@ bx = 30
 
 
 def oddeven():
-    print("Please enter an integer: ")
-    n = int(input())
-    if n % 2 == 0:
-        print(n, " is even.")
+    try:
+        print("Please enter an integer: ", end="")
+        n = int(input())
+    except ValueError:
+        print("Please enter a valid integer.")
+        oddeven()
     else:
-        print(n, " is odd.")
+        if n % 2 == 0:
+            print(n, " is even.")
+        else:
+            print(n, "is odd.")
         
 oddeven()
