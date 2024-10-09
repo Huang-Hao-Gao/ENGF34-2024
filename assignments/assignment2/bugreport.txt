@@ -1,0 +1,19 @@
+1. Play the game.
+2. Find a bug.
+3. Write a brief bug report describing the bug.
+4. Identify the cause of the bug. Write a brief summary of the cause.
+5. Fix the bug.
+6. Repeat from 1.
+
+    A bug report should be brief and to the point. It should include:
+    •One sentence summary of the bug.
+    •Description of what happens.
+    •Description of what you think should happen.
+    •Instructions for how to reproduce the bug
+
+
+Bug 1:
+    You can no longer use the bomb if it misses a building
+    When the bomb goes between the buildings and off the screen, you can no longer drop another bomb
+    When it disappears of the screen, you should be able to drop another bomb
+    Reproduce the bug by dropping a bomb between 2 buildings. 
