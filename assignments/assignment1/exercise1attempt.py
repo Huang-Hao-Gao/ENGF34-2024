@@ -42,4 +42,4 @@ def fizzbuzz():
             print("Buzz", end=" ")
         else: print(x, end=" ")
 
-fizzbuzz()
+#fizzbuzz()
