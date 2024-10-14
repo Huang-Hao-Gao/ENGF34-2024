@@ -17,3 +17,43 @@ Bug 1:
     When the bomb goes between the buildings and off the screen, you can no longer drop another bomb
     When it disappears of the screen, you should be able to drop another bomb
     Reproduce the bug by dropping a bomb between 2 buildings. 
+
+    Cause: There is no code to check if the bomb has fallen out of the canvas.
+    Solution: add an if statement in check_bomb() to check if bomb_pos[1] > 700, and if so explode the bomb
+
+
+
+
+
+Bug 2: 
+    After restarting or going to the next level, the buildings' height doesn't reduce if hit by bomb
+    When the buildings reduce, the outline drops, but the red colour of the building stays the stays. The actual hitbox of the building does decrease so the plane goes through the buildings. 
+    When hit by bomb, both the border and colour should drop.
+    Reproduce by progressing to the next level or restarting with "R" after failing and drop a bomb on a building
+
+Solution:
+
+
+
+Bug 3:
+    Plane enters too far in on right hand side of screen.
+    when trying to hit the first building on the right, the plane is too far forward
+    The plane should enter closer to the right side to allow time for the bomb to hit the first building
+    try to bomb the first building
+
+    Solution: added "+ 100" to the x coordinate of the plane after it's reset 
+    when the plane goes off the screen to the left, reset its x coordinate to the canvas width + 100 rather than just the canvas width 
+
+Bug 4:
+    A building is generated on the right of the screen but outside of the canvas
+    You can't complete the level since it's impossible to hit the building outside the canvas
+    All buildings should be within the canvas
+    Solution: reduced building_num to only iterate between 0 and 9 inclusive, making only 10 buildings rather than the extra before
+
+
+bug 5: 
+    Once all buildings are destroyed, the game doesn't end
+    The plane simply keeps going until it half-enters the bottom of the screen and hits a building
+    When all buildings are destroyed, you should move to the next level
+    reproduce by destroying all buildings
+    Solution: change condition for plane_landed() so that the function is called when the plane reaches the bottom. I think the real issue was that the code wasn't setting the plane's position to the bottom of the screen if it went under, so the original condition was never met. I didn't fix that, I just changed the condition so that it would work if it got close enough
