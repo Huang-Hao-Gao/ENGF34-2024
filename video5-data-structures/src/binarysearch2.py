@@ -24,4 +24,8 @@ def is_in_binary(lst, val):
             start = middle
         else:
             end = middle
+    print(start, end)
     return lst[start] == val
+
+
+is_in_binary([2,3,4,5,6,7], 3)

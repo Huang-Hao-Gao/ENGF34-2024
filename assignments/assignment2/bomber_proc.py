@@ -31,7 +31,7 @@ def update_position(position_list, x_offset, y_offset):
     parameters and appends the relevant state to these lists'''  
 def init_building(canvas, building_num, building_width, building_heights, building_xpos, building_rects):
     global rand
-    height = rand.randint(10,500) #random number between 10 and 500
+    height = rand.randint(10,40) #random number between 10 and 500
     building_heights.append(height)
     x = building_num*SPACING
     building_xpos.append(x)
@@ -53,8 +53,9 @@ def shrink_building(canvas, building_num, building_width, building_heights, buil
     building_heights[building_num] = building_heights[building_num] - 50
     canvas.delete(building_rects[building_num])
     x = building_xpos[building_num]
-    building_rects[building_num] = canvas.create_rectangle(x, CANVAS_HEIGHT, x + building_width,
-                                                           CANVAS_HEIGHT-building_heights[building_num], fill="brown")
+    if building_heights[building_num] > 0:
+        building_rects[building_num] = canvas.create_rectangle(x, CANVAS_HEIGHT, x + building_width,
+                                                              CANVAS_HEIGHT-building_heights[building_num], fill="brown")
 
 ''' delete building number building_num from the canvas '''
 def delete_building(canvas, building_num, building_rects):
@@ -94,7 +95,7 @@ def move_bomb(pos):
     # print(pos)
     global bomb_falling
     if bomb_falling:
-        pos[1] = pos[1] + 8 * speed
+        pos[1] = pos[1] + 20 * speed
 
 ''' drop the bomb from the plane at position plane_pos '''
 def drop_bomb(pos, plane_pos):
@@ -158,7 +159,7 @@ def redraw_plane(canvas, plane_pos):
 ''' move the plane however much it moves during one frame '''
 def move_plane(pos):
     #position is a two element list: [x,y]
-    pos[0] = pos[0] - 4 * speed
+    pos[0] = pos[0] - 15  * speed
     if pos[0] < -plane_width:
         pos[0] += CANVAS_WIDTH + 100
         pos[1] = pos[1] + 40
@@ -253,7 +254,7 @@ def check_plane(canvas, plane_pos, building_width, building_heights, building_xp
             or is_inside_building(building_num, plane_wing_pos, building_width,
                                   building_heights, building_xpos)) :
             game_over(canvas)
-    if plane_body_pos[1] >= CANVAS_HEIGHT - 50 and plane_body_pos[0] < 20:
+    if plane_body_pos[1] >= (CANVAS_HEIGHT - 30) and plane_body_pos[0] < 20:
         plane_landed(canvas)
 
 ''' game_over is called when the plane crashes to stop play and display the
