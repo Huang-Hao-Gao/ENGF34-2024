@@ -17,7 +17,7 @@ class Controller():
         self.level = -1
         self.river_objects = []
         self.cars = []
-        self.model = Model(self);
+        self.model = Model(self)
         self.add_view(View(self.root, self))
         self.model.activate()
 
@@ -113,5 +113,5 @@ class Controller():
                 elapsed = t - last_time
                 last_time = t
                 fps = 60/elapsed
-                i = 0;
+                i = 0
         self.root.destroy()

@@ -8,6 +8,7 @@ LEVEL_TIME = 120
 speed = 1.0
 
 class RiverObject():
+    #initialises a riverobject (makes it exist)
     def __init__(self, x, y, width, dir, speed):
         self.x = x
         self.y = y
@@ -39,13 +40,16 @@ class RiverObject():
         return True
 
 #logs and turtles are both river objects - they move and act mostly the same
+#having RiverObject as a parameter means that Log and Turtle can use any methods from RiverObject
 class Log(RiverObject):
     def __init__(self, x, y, width, dir, speed):
         RiverObject.__init__(self, x, y, width, dir, speed)
 
     def is_log(self):
         return True
-        
+
+
+
 class Turtle(RiverObject):
     def __init__(self, x, y, width, dir, speed):
         RiverObject.__init__(self, x, y, width, dir, speed)
@@ -55,7 +59,7 @@ class Turtle(RiverObject):
         return False
 
     def is_sunk(self):
-        return self.sunk;
+        return self.sunk
     
         
         
@@ -122,6 +126,7 @@ class Frog():
         if self.log != log:
             #we've just joined this log
             self.log = log
+            #is this a bug? self.log_y?
             (self.log_x, log_y) = log.get_position()
             #no need to move this time
         else:
