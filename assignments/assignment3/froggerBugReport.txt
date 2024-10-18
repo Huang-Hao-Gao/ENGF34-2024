@@ -1,0 +1,9 @@
+Bug Reports
+A bug report should be brief and to the point. It should include:
+•One sentence summary of the bug.
+•Description of what happens.
+•Description of what you think should happen.
+•Instructions for how to reproduce the bug.
+
+Bug 1 
+When the frog tries to jump on the turtle, it will die instead of landing on top.
