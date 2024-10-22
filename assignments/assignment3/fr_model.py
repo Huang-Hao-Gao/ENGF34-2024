@@ -268,14 +268,15 @@ class Model():
         # grid square)
         x = (spacing + GRID_SIZE)//2
         for i in range(0,6):
-            x = x + GRID_SIZE + spacing
             self.homes_x.append(x)
+            x = x + GRID_SIZE + spacing
             self.homes_occupied.append(False)
 
     def frog_is_home(self, home_num):
         assert(home_num >= 0 and home_num <= 4)
         self.frogs_home = self.frogs_home + 1
         self.homes_occupied[home_num] = True
+        
 
         #update score
         self.score = self.score + 200
@@ -319,7 +320,8 @@ class Model():
             self.dont_update_speed = True
             # evaluate the registered function
             exec(self.unpause_function)
-            
+            self.frog.reset_position()
+
     def new_life(self):
         self.controller.update_lives(self.lives)
 
@@ -333,6 +335,8 @@ class Model():
         self.score = 0
         self.reset_level()
         self.dont_update_speed = True
+        if not self.game_running:
+            self.game_running = True
 
     def next_level(self):
         self.level = self.level + 1
@@ -373,7 +377,7 @@ class Model():
             # check if it's now on any other log
             for log in self.logs:
                 if log.contains(self.frog):
-                    on_long = log
+                    on_log = log
                     break
         if on_log is None:
             # frog is not on a log - it must be in the water
@@ -451,6 +455,8 @@ class Model():
             self.controller.update_score(self.score)
             self.check_frog()
             self.checkspeed()
+            if int(self.end_time - time.time()) < 0:
+                self.game_over()    
         elif self.paused:
             self.check_pause()
 

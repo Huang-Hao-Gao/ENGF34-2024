@@ -98,7 +98,6 @@ class Controller():
             for view in self.views:
                 view.clear_messages()
             self.model.restart()
-
     def run(self):
         i = 0
         last_time = time.time()

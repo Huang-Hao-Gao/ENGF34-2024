@@ -6,8 +6,49 @@ A bug report should be brief and to the point. It should include:
 •Instructions for how to reproduce the bug.
 
 Bug 1 
-When the frog tries to jump on the turtle, it will die instead of landing on top.
-something to do with the move_with() function?
+When the frog tries to jump on a turtle, it will die instead of landing on top.
+The frog should move along the turtles and logs rather than dying once it lands on it
+Can reproduce by jumping on any turtle
+Solution: fr_model.py: In the check_frog_crossing_river() function, there is a section that checks if the frog is on any other log, assigning that log to on_log. However, on_log was spelt on_long so it was a typo. 
+
+
 
 
 bug on line 129? assigning 2 self variables in one line?
+
+
+bug 2
+When the frog dies, it's position doesn't reset to the start. It respawns where it died
+This means that if you do in the river, you will keep resetting in the river, dying until you spawn on top of a log
+When the frog dies, the skull picture should appear where the frog dies, then after the pause it should reset the frog to the starting position of the level
+Solution: fr_model.py: after the frog dies, died() function is called which then calls a pause function. However, there is a function within the frog class to reset the frog's position but this is never called. I added self.frog.reset_position() in the check_pause() to reset the frogs position once it respawns
+
+
+bug 3
+When trying to enter the top left home, you will die everytime
+When entering the home, even if you're inside the home without touching other walls, you will die
+The frog should be able to enter the 1st home
+reproduce by entering the 1st home
+Solution: fr_model.py: in the create_homes() method, there is a loop which defines the x coordinate of the position of every home. When a frog enters, the check_frog_entering_home() function checks if the frog is close enough to the centre of the home to count as being in. However, for the loop which appends the x values of the homes into self.homes_x, x was being iterated to the position of the 2nd home before being appended to the list for the first time. This means that the 1st home was never created as it started from the 2nd. I simply moved the append(x) to be above the statement which iterates x to the next home position. 
+
+bug 4
+when restarting AFTER THE GAME OVER SCREEN SPECIFICALLY, the game stays paused indefinitely. 
+The game never unpauses after restarting after a game over, but works fine if you restart whilst still playing. 
+The game should resume playing after restarting when you get the game over SCREEN
+reproduce by losing all lives and pressing r
+Solution: When the game_over() function is called, self.game_running = False. After inputting r, the restart() method in the model class is called, but the game_running variable is never set back to true 
+i added the statement: self.game_running = True in the restart() method 
+
+
+
+
+bug 5
+When time runs out, the game doesn't end
+The game just keeps on playing as if there isn't a timer
+The game should end if the time decreases to 0
+reproduce by waiting for the time to decrease to 0
+
+Solution: The program never has a condition for when the remaining time < 0, so in the update() method, I added the following code to call game_over() once the timer runs out in the update() method.
+
+            if int(self.end_time - time.time()) < 0:
+                self.game_over()  
